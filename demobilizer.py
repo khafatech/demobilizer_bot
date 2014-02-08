@@ -38,11 +38,9 @@ for comment in subreddit_comments:
 
     if match and comment.id not in already_done:
 
-        print comment.body
         url_pattern = re.compile("(?P<url>http.{1,}?(?:\s|\)|\Z))")
 
         url = url_pattern.search(comment.body)
-        print url
 
         if not url:
             pickle_mod = open('processed.txt', 'w')
@@ -52,10 +50,8 @@ for comment in subreddit_comments:
             continue
         if url:
             desk = url.group('url')
-            print "desk = ", desk
             desk_url = desk.replace('m.', '')
             desk_url = desk_url.rstrip(')')
-            print desk_url
         
             comment.reply(u"I've detected a mobile URL in your comment.\n\n**[Here's](%s) the equivalent non-mobile URL**.\n\n---\n\n*^[Bugs/Questions/Suggestions/Improvements?](http://www.reddit.com/message/compose/?to=zd9&subject=RE:+demobilizer+bot) ^| ^[Source\xa0Code](https://github.com/zd9/demobilizer_bot)*" % (desk_url))
         
